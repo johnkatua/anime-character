@@ -26,5 +26,12 @@ btn1.addEventListener('click', () => {
 
 const btn2 = document.getElementById('button2');
 btn2.addEventListener('click', () => {
-  audio1.pause();
+  const oscillator = audioCtx.createOscillator();
+  oscillator.connect(audioCtx.destination);
+  oscillator.type = 'sine';
+  oscillator.frequency.value = 440;
+  oscillator.start();
+  setTimeout(() => {
+    oscillator.stop();
+  }, 1000);
 });
