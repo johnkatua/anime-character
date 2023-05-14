@@ -1,16 +1,15 @@
-// let audio1 = document.getElementById('audio1');
-let audio = null;
+let audio1 = document.getElementById('audio1');
 
 fetch('../lesson1-lab/audio.txt')
   .then(response => response.text())
   .then(text => {
-    audio = new Audio(text);
-    // audio1.src = text;
+    audio1.src = text;
   });;
 
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
 const container = document.getElementById('container');
+const file = document.getElementById('audioFile');
 const canvas = document.getElementById('canvas');
 canvas.width = container.clientWidth;
 canvas.height = container.clientHeight;
@@ -19,8 +18,8 @@ let audioSource = null;
 let analyser = null;
 
 container.addEventListener('click', () => {
-  audio.play();
-  audioSource = audioCtx.createMediaElementSource(audio);
+  audio1.play();
+  audioSource = audioCtx.createMediaElementSource(audio1);
   analyser = audioCtx.createAnalyser(); // AnalyserNode 
   audioSource.connect(analyser); // connect the source to the analyser
   analyser.connect(audioCtx.destination); // connect the analyser to the destination (speaker)
@@ -37,11 +36,19 @@ container.addEventListener('click', () => {
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     for (let i = 0; i < bufferLength; i++) {
-      barHeight = dataArray[i];
+      barHeight = dataArray[i] * 2.5;
       ctx.fillStyle = `rgb(${barHeight + 100},50,50)`;
       ctx.fillRect(x, canvas.height - barHeight / 2, barWidth, barHeight / 2);
       x += barWidth + 1;
     }
   };
   renderFrame();
+});
+
+file.addEventListener('change', () => {
+  const files = file.files;
+  console.log(files);
+  audio1.src = URL.createObjectURL(files[0]);
+  audio1.load();
+  audio1.play();
 });

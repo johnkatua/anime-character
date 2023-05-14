@@ -26,3 +26,16 @@
   margin: 50px auto;
   width: 50%;
 }
+
+#audioFile {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50%;
+  height: 50px;
+  border: 1px solid white;
+  border-radius: 5px;
+  color: white;
+  z-index: 1;
+}
