@@ -1,8 +1,6 @@
 const btn1 = document.getElementById('button1');
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-console.log(audioCtx);
-
 let audio1 = null;
 fetch('audio.txt')
   .then(response => response.text())
